@@ -29,12 +29,16 @@ pipeline {
         dir('adoptopenjdk-15-dind') {
           sh 'docker build -t kinerp/maven:3.8.1-adoptopenjdk-15-dind .'
         }
+        dir('adoptopenjdk-16-dind') {
+          sh 'docker build -t kinerp/maven:3.8.1-adoptopenjdk-16-dind .'
+        }
       }
     }
     stage('Push') {
       steps {
         withDockerRegistry(registry: [credentialsId: 'DOCKER_IMAGE_UPLOAD_TOKEN']) {
           sh 'docker push  kinerp/maven:3.8.1-adoptopenjdk-15-dind'
+          sh 'docker push  kinerp/maven:3.8.1-adoptopenjdk-16-dind'
         }
       }
     }
